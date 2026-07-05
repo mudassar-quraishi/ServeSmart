@@ -109,7 +109,7 @@ git pull
 ### 3.2 Database
 Create a local database and apply migrations:
 ```sql
-CREATE DATABASE servesmart_dev;
+CREATE DATABASE servesmart;
 ```
 Migrations run automatically on backend startup (see Section 5) — you never run schema SQL by hand.
 
@@ -122,7 +122,7 @@ cp backend/src/main/resources/application-local.properties.example backend/src/m
 ```
 ```properties
 # application-local.properties — NEVER commit this file
-spring.datasource.url=jdbc:mysql://localhost:3306/servesmart_dev
+spring.datasource.url=jdbc:mysql://localhost:3306/servesmart
 spring.datasource.username=root
 spring.datasource.password=your-local-mysql-password
 
