@@ -10,7 +10,7 @@ Everything needed to start the project, in one place. This file explains what ea
 |---|---|---|---|
 | 1 | `Docs/ServeSmart_SRS.docx` | The full requirements spec — every module, every business rule, non-functional requirements, testing/deployment plan | Everyone, before touching code |
 | 2 | `Docs/ServeSmart_Team_Allocation.docx` | Who owns which module, week-by-week plan, dependencies between people | Everyone, right after the SRS |
-| 3 | `Docs/CONTRIBUTING.md` | How we actually work day-to-day: git branching, local setup, how modules talk to each other, testing before push | Everyone, before your first commit |
+| 3 | `CONTRIBUTING.md` | How we actually work day-to-day: git branching, local setup, how modules talk to each other, testing before push | Everyone, before your first commit |
 | 4 | `Docs/DATABASE_SCHEMA.md` | Every table, every column, the runnable SQL to create them all | Whoever's writing entities/repositories for their module |
 | 5 | `Docs/API_SPECIFICATION.md` | Every endpoint, request/response shape, which role can call what | Whoever's writing controllers, or calling someone else's module |
 
