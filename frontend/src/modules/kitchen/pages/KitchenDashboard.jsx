@@ -84,7 +84,7 @@ export default function KitchenDashboard() {
                             <div className="text-center text-on-surface-variant p-xl font-body-md">No pending items.</div>
                         ) : (
                             pendingItems.map(item => (
-                                <div key={item.orderItemId} className="bg-surface-container-lowest border-l-4 border-l-secondary border border-outline-variant rounded-lg p-md shadow-soft flex flex-col">
+                                <div key={item.orderItemId} className="shrink-0 bg-surface-container-lowest border-l-4 border-l-secondary border border-outline-variant rounded-lg p-md shadow-soft flex flex-col">
                                     <div className="flex justify-between items-start mb-sm">
                                         <div>
                                             <h3 className="font-headline-md font-bold text-on-surface">{item.quantity}x {item.menuItemName}</h3>
@@ -136,7 +136,7 @@ export default function KitchenDashboard() {
                             <div className="text-center text-on-surface-variant p-xl font-body-md">No items in preparation.</div>
                         ) : (
                             preparingItems.map(item => (
-                                <div key={item.orderItemId} className="bg-surface-container-lowest border-l-4 border-l-primary border border-outline-variant rounded-lg p-md shadow-soft flex flex-col relative overflow-hidden">
+                                <div key={item.orderItemId} className="shrink-0 bg-surface-container-lowest border-l-4 border-l-primary border border-outline-variant rounded-lg p-md shadow-soft flex flex-col relative overflow-hidden">
                                     {/* Animated background strip indicating active cooking */}
                                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-secondary/20 via-secondary to-secondary/20 animate-pulse"></div>
                                     

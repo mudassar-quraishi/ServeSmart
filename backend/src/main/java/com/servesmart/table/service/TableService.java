@@ -121,7 +121,7 @@ public class TableService {
         RestaurantTable table = tableRepository.findById(tableId)
                 .orElseThrow(() -> new RuntimeException("Table not found: " + tableId));
         String status = table.getStatus();
-        if ("FREE".equals(status) || "RESERVED".equals(status) || "OCCUPIED".equals(status)) {
+        if ("FREE".equals(status) || "RESERVED".equals(status)) {
             return true;
         }
         throw new RuntimeException("Table " + tableId + " is not available. Current status: " + status);

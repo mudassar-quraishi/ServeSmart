@@ -63,6 +63,10 @@ public class OrderService {
         order.setWaiter(waiter);
         order.setStatus("NEW");
 
+        if (request.getTableId() != null) {
+            tableService.updateTableStatus(request.getTableId(), "OCCUPIED");
+        }
+
         Order savedOrder = orderRepository.save(order);
 
         BigDecimal total = BigDecimal.ZERO;
@@ -160,6 +164,10 @@ public class OrderService {
 
         order.setStatus(newStatus);
         orderRepository.save(order);
+
+        if (order.getTable() != null && ("COMPLETED".equals(newStatus) || "CANCELLED".equals(newStatus) || "REJECTED".equals(newStatus))) {
+            tableService.freeTable(order.getTable().getId());
+        }
         return toResponse(order, calculateTotal(order));
     }
 
@@ -176,6 +184,10 @@ public class OrderService {
         order.setCancellationReason(request.getReasonCode() + (request.getNotes() != null ? ": " + request.getNotes() : ""));
         order.setCancelledBy(user);
         orderRepository.save(order);
+
+        if (order.getTable() != null) {
+            tableService.freeTable(order.getTable().getId());
+        }
         return toResponse(order, calculateTotal(order));
     }
 
