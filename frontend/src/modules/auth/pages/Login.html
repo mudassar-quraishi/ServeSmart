@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ServeSmart - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f9f9fa",
+                        "on-surface-variant": "#46474b",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#c5c6cd",
+                        "surface-container-low": "#f3f3f4",
+                        "outline": "#76777b",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#c5c6cd",
+                        "surface-container": "#eeeeef",
+                        "on-primary-fixed-variant": "#45474c",
+                        "tertiary-fixed": "#bdeec5",
+                        "primary-container": "#24262b",
+                        "on-secondary-fixed": "#301400",
+                        "surface-variant": "#e2e2e3",
+                        "on-primary-fixed": "#191c20",
+                        "tertiary": "#001506",
+                        "surface-tint": "#5d5e64",
+                        "on-secondary-fixed-variant": "#713700",
+                        "on-tertiary-fixed-variant": "#244f31",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c6c6cb",
+                        "on-background": "#1a1c1d",
+                        "primary": "#0f1116",
+                        "surface-container-highest": "#e2e2e3",
+                        "background": "#f9f9fa",
+                        "tertiary-fixed-dim": "#a2d2aa",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#00210c",
+                        "on-secondary-container": "#693300",
+                        "on-surface": "#1a1c1d",
+                        "surface-container-high": "#e8e8e9",
+                        "on-primary-container": "#8c8d93",
+                        "tertiary-container": "#002d13",
+                        "on-error-container": "#93000a",
+                        "secondary": "#944b00",
+                        "secondary-fixed-dim": "#ffb783",
+                        "secondary-container": "#fd943e",
+                        "surface-dim": "#dadadb",
+                        "surface": "#f9f9fa",
+                        "inverse-surface": "#2f3132",
+                        "primary-fixed": "#e2e2e9",
+                        "inverse-on-surface": "#f0f1f2",
+                        "secondary-fixed": "#ffdcc5",
+                        "on-tertiary-container": "#6a9773",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sidebar_width": "260px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "base": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "gutter": "20px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "display": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+                    },
+                    "boxShadow": {
+                        'soft': '0px 1px 3px rgba(0,0,0,0.05), 0px 1px 2px rgba(0,0,0,0.03)',
+                        'elevated': '0px 10px 15px -3px rgba(0,0,0,0.1)'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-full bg-background flex items-center justify-center font-body-md text-body-md text-on-surface antialiased p-md md:p-0">
+<main class="w-full max-w-[420px]">
+<!-- Brand / Logo Area -->
+<div class="flex flex-col items-center mb-xl">
+<div class="h-12 w-12 bg-primary rounded-xl flex items-center justify-center mb-md shadow-soft">
+<span class="material-symbols-outlined text-on-primary text-[24px]">restaurant</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">ServeSmart</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-sm">Enterprise ERP</p>
+</div>
+<!-- Login Card -->
+<div class="bg-surface-container-lowest rounded-[12px] p-xl shadow-soft border border-surface-variant">
+<h2 class="font-headline-md text-headline-md mb-md text-on-surface">Sign In</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-xl">Access your restaurant management dashboard.</p>
+<form class="flex flex-col gap-md">
+<!-- Username Field -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-sm uppercase" for="username">Username / ID</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-sm flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline-variant text-[20px]">person</span>
+</div>
+<input class="block w-full pl-xl pr-sm py-[10px] bg-surface border border-surface-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-colors" id="username" name="username" placeholder="e.g. mgr_smith" type="text"/>
+</div>
+</div>
+<!-- Password Field -->
+<div>
+<div class="flex justify-between items-center mb-sm">
+<label class="block font-label-md text-label-md text-on-surface-variant uppercase" for="password">Password</label>
+<a class="font-label-md text-label-md text-secondary hover:text-secondary-container transition-colors" href="#">Forgot password?</a>
+</div>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-sm flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline-variant text-[20px]">lock</span>
+</div>
+<input class="block w-full pl-xl pr-sm py-[10px] bg-surface border border-surface-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-colors" id="password" name="password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="w-full mt-sm py-[10px] bg-primary-container text-on-primary hover:bg-primary transition-colors rounded-[12px] font-label-md text-label-md uppercase flex items-center justify-center gap-sm" type="button">
+                    Sign In <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</form>
+</div>
+<!-- Footer / Support -->
+<div class="mt-lg text-center">
+<p class="font-label-md text-label-md text-outline">
+                Need help? <a class="text-on-surface-variant hover:text-primary transition-colors underline" href="#">Contact Support</a>
+</p>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,89 @@
+CREATE TABLE roles (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(30) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE users (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(120) UNIQUE NOT NULL,
+    password_hash VARCHAR(100) NOT NULL,
+    role_id BIGINT NOT NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    failed_login_attempts INT DEFAULT 0,
+    locked_until TIMESTAMP NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (role_id) REFERENCES roles(id)
+);
+
+CREATE TABLE customers (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) UNIQUE NOT NULL,
+    email VARCHAR(120) NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE restaurant_tables (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    table_number VARCHAR(10) UNIQUE NOT NULL,
+    capacity INT NOT NULL,
+    status ENUM('FREE','OCCUPIED','RESERVED') DEFAULT 'FREE',
+    merged_with_table_id BIGINT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (merged_with_table_id) REFERENCES restaurant_tables(id)
+);
+
+CREATE TABLE menu_categories (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(60) NOT NULL,
+    display_order INT DEFAULT 0
+);
+
+CREATE TABLE menu_items (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    category_id BIGINT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    description VARCHAR(500) NULL,
+    price DECIMAL(10,2) NOT NULL,
+    gst_slab ENUM('FIVE','TWELVE','EIGHTEEN') NOT NULL,
+    image_url VARCHAR(255) NULL,
+    is_available BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (category_id) REFERENCES menu_categories(id)
+);
+
+CREATE TABLE orders (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    table_id BIGINT NULL,
+    customer_id BIGINT NULL,
+    waiter_id BIGINT NOT NULL,
+    status ENUM('NEW','ACCEPTED','PREPARING','READY','SERVED','COMPLETED','REJECTED','CANCELLED') DEFAULT 'NEW',
+    cancellation_reason VARCHAR(255) NULL,
+    cancelled_by BIGINT NULL,
+    version INT NOT NULL DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (table_id) REFERENCES restaurant_tables(id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id),
+    FOREIGN KEY (waiter_id) REFERENCES users(id),
+    FOREIGN KEY (cancelled_by) REFERENCES users(id)
+);
+
+CREATE TABLE order_items (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    order_id BIGINT NOT NULL,
+    menu_item_id BIGINT NOT NULL,
+    quantity INT NOT NULL,
+    status ENUM('PENDING','PREPARING','READY','SERVED','CANCELLED') DEFAULT 'PENDING',
+    notes VARCHAR(255) NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (menu_item_id) REFERENCES menu_items(id)
+);
+
+INSERT INTO roles (name) VALUES ('SUPER_ADMIN'), ('MANAGER'), ('WAITER'), ('CHEF'), ('CASHIER');

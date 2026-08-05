@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ServeSmart - Create Order</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#f9f9fa",
+                      "on-surface-variant": "#46474b",
+                      "on-error": "#ffffff",
+                      "primary-fixed-dim": "#c5c6cd",
+                      "surface-container-low": "#f3f3f4",
+                      "outline": "#76777b",
+                      "on-tertiary": "#ffffff",
+                      "inverse-primary": "#c5c6cd",
+                      "surface-container": "#eeeeef",
+                      "on-primary-fixed-variant": "#45474c",
+                      "tertiary-fixed": "#bdeec5",
+                      "primary-container": "#24262b",
+                      "on-secondary-fixed": "#301400",
+                      "surface-variant": "#e2e2e3",
+                      "on-primary-fixed": "#191c20",
+                      "tertiary": "#001506",
+                      "surface-tint": "#5d5e64",
+                      "on-secondary-fixed-variant": "#713700",
+                      "on-tertiary-fixed-variant": "#244f31",
+                      "surface-container-lowest": "#ffffff",
+                      "error": "#ba1a1a",
+                      "outline-variant": "#c6c6cb",
+                      "on-background": "#1a1c1d",
+                      "primary": "#0f1116",
+                      "surface-container-highest": "#e2e2e3",
+                      "background": "#f9f9fa",
+                      "tertiary-fixed-dim": "#a2d2aa",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-fixed": "#00210c",
+                      "on-secondary-container": "#693300",
+                      "on-surface": "#1a1c1d",
+                      "surface-container-high": "#e8e8e9",
+                      "on-primary-container": "#8c8d93",
+                      "tertiary-container": "#002d13",
+                      "on-error-container": "#93000a",
+                      "secondary": "#944b00",
+                      "secondary-fixed-dim": "#ffb783",
+                      "secondary-container": "#fd943e",
+                      "surface-dim": "#dadadb",
+                      "surface": "#f9f9fa",
+                      "inverse-surface": "#2f3132",
+                      "primary-fixed": "#e2e2e9",
+                      "inverse-on-surface": "#f0f1f2",
+                      "secondary-fixed": "#ffdcc5",
+                      "on-tertiary-container": "#6a9773",
+                      "on-primary": "#ffffff",
+                      "error-container": "#ffdad6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sidebar_width": "260px",
+                      "lg": "24px",
+                      "xs": "4px",
+                      "base": "4px",
+                      "md": "16px",
+                      "xl": "32px",
+                      "sm": "8px",
+                      "gutter": "20px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "display": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display": [
+                              "36px",
+                              {
+                                      "lineHeight": "44px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .perforated-edge {
+            mask-image: radial-gradient(circle at 10px 100%, transparent 10px, black 11px);
+            mask-size: 20px 100%;
+            mask-repeat: repeat-x;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background h-full font-body-md overflow-hidden flex">
+<!-- Top Navigation Placeholder (Hidden for this specific task-focused flow as per Shell Visibility rules) -->
+<!-- However, the prompt mentions it's a create order flow, but requires the TopNavBar from JSON if it's a main destination. Since it's "Create Order" (a transactional flow), we suppress the main global nav sidebars and topbars to focus on the canvas. -->
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-full w-full">
+<!-- Flow Header -->
+<header class="bg-surface border-b border-outline-variant px-lg py-md flex items-center justify-between z-10 shadow-sm shrink-0">
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center p-sm rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<div>
+<h1 class="font-headline-md text-headline-md text-primary font-bold tracking-tight">Create Order</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Table 12 • Walk-in Customer</p>
+</div>
+</div>
+<!-- Stepper -->
+<div class="hidden md:flex items-center gap-sm">
+<div class="flex items-center gap-xs">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-primary flex items-center justify-center font-label-md text-label-md">1</div>
+<span class="font-label-md text-label-md text-on-surface">Table</span>
+</div>
+<div class="w-8 h-[2px] bg-outline-variant"></div>
+<div class="flex items-center gap-xs">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-primary flex items-center justify-center font-label-md text-label-md">2</div>
+<span class="font-label-md text-label-md text-on-surface">Guest</span>
+</div>
+<div class="w-8 h-[2px] bg-secondary"></div>
+<div class="flex items-center gap-xs">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-primary flex items-center justify-center font-label-md text-label-md">3</div>
+<span class="font-label-md text-label-md text-on-surface font-bold">Menu</span>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="font-label-md text-label-md text-error px-md py-sm border border-outline-variant rounded-DEFAULT hover:bg-error-container hover:border-error transition-colors">
+                    Cancel Order
+                </button>
+</div>
+</header>
+<!-- Split Screen Layout -->
+<div class="flex-1 flex overflow-hidden bg-background">
+<!-- Left: Menu Selection -->
+<div class="flex-1 flex flex-col h-full border-r border-outline-variant">
+<!-- Search & Categories -->
+<div class="bg-surface px-lg py-md border-b border-outline-variant shrink-0">
+<div class="relative w-full mb-md">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full pl-xl pr-md py-sm border border-outline-variant rounded-DEFAULT bg-surface focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary font-body-md text-body-md text-on-surface placeholder:text-outline" placeholder="Search menu items..." type="text"/>
+</div>
+<div class="flex gap-sm overflow-x-auto pb-sm scrollbar-hide">
+<button class="px-md py-sm rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md whitespace-nowrap shrink-0">All Items</button>
+<button class="px-md py-sm rounded-full bg-surface border border-outline-variant text-on-surface-variant hover:bg-surface-container font-label-md text-label-md whitespace-nowrap shrink-0">Starters</button>
+<button class="px-md py-sm rounded-full bg-surface border border-outline-variant text-on-surface-variant hover:bg-surface-container font-label-md text-label-md whitespace-nowrap shrink-0">Mains</button>
+<button class="px-md py-sm rounded-full bg-surface border border-outline-variant text-on-surface-variant hover:bg-surface-container font-label-md text-label-md whitespace-nowrap shrink-0">Breads</button>
+<button class="px-md py-sm rounded-full bg-surface border border-outline-variant text-on-surface-variant hover:bg-surface-container font-label-md text-label-md whitespace-nowrap shrink-0">Desserts</button>
+<button class="px-md py-sm rounded-full bg-surface border border-outline-variant text-on-surface-variant hover:bg-surface-container font-label-md text-label-md whitespace-nowrap shrink-0">Beverages</button>
+</div>
+</div>
+<!-- Menu Items Grid -->
+<div class="flex-1 overflow-y-auto p-lg">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Menu Item Card 1 -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col hover:shadow-sm transition-shadow">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Masala Dosa</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase mt-xs">Mains • South Indian</p>
+</div>
+<span class="font-label-md text-label-md text-on-surface bg-surface-container px-sm py-xs rounded">₹ 140</span>
+</div>
+<p class="font-body-md text-body-md text-outline mb-md flex-1 line-clamp-2">Crispy rice &amp; lentil crepe filled with spiced potato masala. Served with sambar and chutney.</p>
+<button class="w-full py-sm bg-secondary text-on-primary rounded-DEFAULT font-label-md text-label-md hover:bg-secondary/90 transition-colors flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span> Add to Cart
+                            </button>
+</div>
+<!-- Menu Item Card 2 -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col hover:shadow-sm transition-shadow">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Paneer Tikka</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase mt-xs">Starters • Tandoor</p>
+</div>
+<span class="font-label-md text-label-md text-on-surface bg-surface-container px-sm py-xs rounded">₹ 280</span>
+</div>
+<p class="font-body-md text-body-md text-outline mb-md flex-1 line-clamp-2">Marinated cottage cheese cubes roasted in tandoor with bell peppers and onions.</p>
+<button class="w-full py-sm border border-outline-variant text-on-surface rounded-DEFAULT font-label-md text-label-md hover:bg-surface-container transition-colors flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span> Add to Cart
+                            </button>
+</div>
+<!-- Menu Item Card 3 -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col hover:shadow-sm transition-shadow">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Mango Lassi</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase mt-xs">Beverages • Cold</p>
+</div>
+<span class="font-label-md text-label-md text-on-surface bg-surface-container px-sm py-xs rounded">₹ 120</span>
+</div>
+<p class="font-body-md text-body-md text-outline mb-md flex-1 line-clamp-2">Sweet yogurt drink blended with fresh mango pulp.</p>
+<button class="w-full py-sm border border-outline-variant text-on-surface rounded-DEFAULT font-label-md text-label-md hover:bg-surface-container transition-colors flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span> Add to Cart
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Cart Summary -->
+<div class="w-[360px] bg-surface-container-lowest flex flex-col shrink-0 h-full">
+<div class="p-md border-b border-outline-variant shrink-0 bg-surface">
+<h2 class="font-headline-md text-headline-md text-primary font-bold">Current Order</h2>
+<!-- Order Status Tracker -->
+<div class="mt-md flex items-center justify-between relative">
+<div class="absolute left-[10%] right-[10%] top-1/2 -translate-y-1/2 h-[2px] bg-surface-container-high z-0"></div>
+<div class="absolute left-[10%] right-[50%] top-1/2 -translate-y-1/2 h-[2px] bg-secondary z-0"></div>
+<div class="flex flex-col items-center gap-xs z-10">
+<div class="w-6 h-6 rounded-full bg-secondary text-on-primary flex items-center justify-center"><span class="material-symbols-outlined text-[12px]" data-icon="check">check</span></div>
+<span class="font-label-sm text-label-sm text-on-surface">New</span>
+</div>
+<div class="flex flex-col items-center gap-xs z-10">
+<div class="w-6 h-6 rounded-full bg-secondary text-on-primary flex items-center justify-center"><span class="material-symbols-outlined text-[12px]" data-icon="receipt_long">receipt_long</span></div>
+<span class="font-label-sm text-label-sm text-on-surface">Draft</span>
+</div>
+</div>
+</div>
+<!-- Cart Items (Ticket Style) -->
+<div class="flex-1 overflow-y-auto p-md bg-surface-bright relative">
+<!-- Main Ticket -->
+<div class="bg-surface rounded-t-lg shadow-sm border border-outline-variant border-b-0 perforated-edge relative">
+<div class="p-md pb-lg">
+<div class="flex justify-between items-center mb-md pb-sm border-b border-surface-variant">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Ticket #4021</span>
+<span class="font-label-sm text-label-sm bg-surface-variant text-on-surface px-sm py-xs rounded">Draft</span>
+</div>
+<!-- Cart Item -->
+<div class="flex items-start justify-between mb-sm group">
+<div class="flex gap-sm">
+<div class="w-8 h-8 bg-surface-container rounded flex items-center justify-center font-label-md text-label-md border border-outline-variant">
+                                        1
+                                    </div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Masala Dosa</div>
+<div class="font-label-sm text-label-sm text-secondary mt-xs">Extra Spicy</div>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<span class="font-label-md text-label-md text-on-surface">₹ 140</span>
+<button class="text-outline hover:text-error opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[18px]" data-icon="close">close</span>
+</button>
+</div>
+</div>
+<!-- Cart Item -->
+<div class="flex items-start justify-between mb-sm group">
+<div class="flex gap-sm">
+<div class="w-8 h-8 bg-surface-container rounded flex items-center justify-center font-label-md text-label-md border border-outline-variant">
+                                        2
+                                    </div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Mango Lassi</div>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<span class="font-label-md text-label-md text-on-surface">₹ 240</span>
+<button class="text-outline hover:text-error opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[18px]" data-icon="close">close</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Example of Sub-ticket logic context -->
+<p class="text-center font-label-sm text-label-sm text-outline mt-md">New items will be grouped here before sending to kitchen.</p>
+</div>
+<!-- Footer Summary -->
+<div class="bg-surface p-md border-t border-outline-variant shrink-0 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+<div class="flex justify-between items-center mb-xs">
+<span class="font-body-md text-body-md text-on-surface-variant">Subtotal</span>
+<span class="font-body-md text-body-md text-on-surface">₹ 380</span>
+</div>
+<div class="flex justify-between items-center mb-md">
+<span class="font-label-sm text-label-sm text-outline">Taxes (5%)</span>
+<span class="font-label-sm text-label-sm text-outline">₹ 19</span>
+</div>
+<div class="flex justify-between items-center mb-md pt-sm border-t border-surface-variant">
+<span class="font-headline-md text-headline-md text-primary font-bold">Total</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">₹ 399</span>
+</div>
+<button class="w-full py-md bg-secondary text-on-primary rounded-DEFAULT font-label-md text-label-md hover:bg-secondary/90 transition-colors flex items-center justify-center gap-sm shadow-sm">
+                        Send to Kitchen <span class="material-symbols-outlined text-[18px]" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>
