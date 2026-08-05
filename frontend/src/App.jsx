@@ -18,9 +18,12 @@ import FeedbackList from './modules/feedback/pages/FeedbackList';
 import ReportDashboard from './modules/report/pages/ReportDashboard';
 import OrderList from './modules/order/pages/OrderList';
 
+import { Toaster } from 'react-hot-toast';
+
 function App() {
     return (
         <AuthProvider>
+            <Toaster position="top-right" />
             <Routes>
                 <Route path="/login" element={<Login />} />
                 

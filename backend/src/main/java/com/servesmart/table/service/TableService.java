@@ -36,6 +36,27 @@ public class TableService {
         return tableRepository.save(table);
     }
 
+    public RestaurantTable updateTable(Long id, CreateTableRequest request) {
+        RestaurantTable table = tableRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Table not found: " + id));
+        table.setTableNumber(request.getTableNumber());
+        table.setCapacity(request.getCapacity());
+        return tableRepository.save(table);
+    }
+
+    public RestaurantTable updateTableStatus(Long id, String newStatus) {
+        RestaurantTable table = tableRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Table not found: " + id));
+        table.setStatus(newStatus.toUpperCase());
+        return tableRepository.save(table);
+    }
+
+    public void deleteTable(Long id) {
+        RestaurantTable table = tableRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Table not found: " + id));
+        tableRepository.delete(table);
+    }
+
     @Transactional
     public TableReservation reserveTable(Long tableId, ReserveTableRequest request) {
         RestaurantTable table = tableRepository.findById(tableId)

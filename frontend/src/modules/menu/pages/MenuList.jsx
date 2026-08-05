@@ -9,20 +9,23 @@ export default function MenuList() {
     const isManager = user?.role === 'SUPER_ADMIN' || user?.role === 'MANAGER';
     
     const [menuItems, setMenuItems] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingItem, setEditingItem] = useState(null);
-    const [activeCategory, setActiveCategory] = useState('ALL');
-
-    const categories = ['ALL', 'STARTER', 'MAIN_COURSE', 'DESSERT', 'BEVERAGE'];
+    const [activeCategoryId, setActiveCategoryId] = useState('ALL');
 
     const fetchMenu = async () => {
         try {
             setLoading(true);
-            const { data } = await api.get('/menu');
-            setMenuItems(data);
+            const [itemsRes, categoriesRes] = await Promise.all([
+                api.get('/menu/items'),
+                api.get('/menu/categories')
+            ]);
+            setMenuItems(itemsRes.data);
+            setCategories(categoriesRes.data);
         } catch (error) {
-            toast.error('Failed to load menu items');
+            toast.error('Failed to load menu data');
             console.error(error);
         } finally {
             setLoading(false);
@@ -36,7 +39,7 @@ export default function MenuList() {
     const handleDelete = async (id) => {
         if (!window.confirm('Are you sure you want to delete this menu item?')) return;
         try {
-            await api.delete(`/menu/${id}`);
+            await api.delete(`/menu/items/${id}`);
             toast.success('Menu item deleted');
             fetchMenu();
         } catch (error) {
@@ -47,7 +50,7 @@ export default function MenuList() {
     const toggleAvailability = async (item) => {
         if (!isManager) return;
         try {
-            await api.patch(`/menu/${item.id}/availability`, { isAvailable: !item.isAvailable });
+            await api.patch(`/menu/items/${item.id}/availability`, { isAvailable: !item.isAvailable });
             toast.success('Availability updated');
             fetchMenu();
         } catch (error) {
@@ -65,9 +68,9 @@ export default function MenuList() {
         setIsModalOpen(true);
     };
 
-    const filteredItems = activeCategory === 'ALL' 
+    const filteredItems = activeCategoryId === 'ALL' 
         ? menuItems 
-        : menuItems.filter(item => item.category === activeCategory);
+        : menuItems.filter(item => item.category?.id === activeCategoryId);
 
     return (
         <div className="flex-1 p-lg overflow-y-auto">
@@ -88,17 +91,27 @@ export default function MenuList() {
             </div>
 
             <div className="flex gap-sm mb-lg overflow-x-auto scrollbar-hide pb-sm">
+                <button
+                    onClick={() => setActiveCategoryId('ALL')}
+                    className={`px-md py-sm rounded-full font-label-md whitespace-nowrap transition-colors border ${
+                        activeCategoryId === 'ALL' 
+                            ? 'bg-primary text-on-primary border-primary' 
+                            : 'bg-surface border-outline-variant text-on-surface hover:bg-surface-container'
+                    }`}
+                >
+                    All Items
+                </button>
                 {categories.map(category => (
                     <button
-                        key={category}
-                        onClick={() => setActiveCategory(category)}
+                        key={category.id}
+                        onClick={() => setActiveCategoryId(category.id)}
                         className={`px-md py-sm rounded-full font-label-md whitespace-nowrap transition-colors border ${
-                            activeCategory === category 
+                            activeCategoryId === category.id 
                                 ? 'bg-primary text-on-primary border-primary' 
                                 : 'bg-surface border-outline-variant text-on-surface hover:bg-surface-container'
                         }`}
                     >
-                        {category.replace('_', ' ')}
+                        {category.name}
                     </button>
                 ))}
             </div>
@@ -169,8 +182,9 @@ export default function MenuList() {
             )}
 
             {isModalOpen && (
-                <MenuModal
+                <MenuModal 
                     item={editingItem}
+                    categories={categories}
                     onClose={() => setIsModalOpen(false)}
                     onSuccess={() => {
                         setIsModalOpen(false);

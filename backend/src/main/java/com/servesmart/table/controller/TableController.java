@@ -50,4 +50,22 @@ public class TableController {
     public ResponseEntity<RestaurantTable> merge(@RequestBody MergeTablesRequest request) {
         return ResponseEntity.ok(tableService.mergeTables(request));
     }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('MANAGER','SUPER_ADMIN')")
+    public ResponseEntity<RestaurantTable> update(@PathVariable Long id, @Valid @RequestBody CreateTableRequest request) {
+        return ResponseEntity.ok(tableService.updateTable(id, request));
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<RestaurantTable> updateStatus(@PathVariable Long id, @RequestBody java.util.Map<String, String> body) {
+        return ResponseEntity.ok(tableService.updateTableStatus(id, body.get("status")));
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('MANAGER','SUPER_ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        tableService.deleteTable(id);
+        return ResponseEntity.noContent().build();
+    }
 }

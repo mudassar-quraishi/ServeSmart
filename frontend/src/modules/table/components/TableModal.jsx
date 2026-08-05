@@ -8,8 +8,8 @@ export default function TableModal({ table, onClose, onSuccess }) {
     const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm({
         defaultValues: {
             tableNumber: table?.tableNumber || '',
-            seatingCapacity: table?.seatingCapacity || 2,
-            status: table?.status || 'AVAILABLE',
+            capacity: table?.capacity || table?.seatingCapacity || 2,
+            status: table?.status || 'FREE',
         }
     });
 
@@ -17,8 +17,8 @@ export default function TableModal({ table, onClose, onSuccess }) {
         if (table) {
             reset({
                 tableNumber: table.tableNumber || '',
-                seatingCapacity: table.seatingCapacity || 2,
-                status: table.status || 'AVAILABLE',
+                capacity: table.capacity || table.seatingCapacity || 2,
+                status: table.status || 'FREE',
             });
         }
     }, [table, reset]);
@@ -40,7 +40,7 @@ export default function TableModal({ table, onClose, onSuccess }) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-md bg-inverse-surface/40 backdrop-blur-sm animate-fade-in">
-            <div className="bg-surface rounded-xl shadow-elevated w-full max-w-sm flex flex-col max-h-[90vh] overflow-hidden animate-slide-up">
+            <div className="bg-surface rounded-xl shadow-elevated w-full min-w-[400px] max-w-[384px] flex flex-col max-h-[90vh] overflow-hidden animate-slide-up">
                 <div className="p-lg border-b border-outline-variant flex justify-between items-center shrink-0">
                     <h2 className="font-headline-md font-bold text-on-surface">
                         {isEdit ? 'Edit Table' : 'Add New Table'}
@@ -67,11 +67,11 @@ export default function TableModal({ table, onClose, onSuccess }) {
                             <label className="font-label-md text-on-surface-variant">Seating Capacity *</label>
                             <input
                                 type="number"
-                                {...register('seatingCapacity', { required: 'Capacity is required', min: 1 })}
+                                {...register('capacity', { required: 'Capacity is required', min: 1, valueAsNumber: true })}
                                 className="px-md py-sm border border-outline-variant rounded bg-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-colors"
                                 placeholder="4"
                             />
-                            {errors.seatingCapacity && <span className="text-error font-label-sm">{errors.seatingCapacity.message}</span>}
+                            {errors.capacity && <span className="text-error font-label-sm">{errors.capacity.message}</span>}
                         </div>
 
                         {!isEdit && (
@@ -81,8 +81,9 @@ export default function TableModal({ table, onClose, onSuccess }) {
                                     {...register('status')}
                                     className="px-md py-sm border border-outline-variant rounded bg-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-colors"
                                 >
-                                    <option value="AVAILABLE">Available</option>
-                                    <option value="MAINTENANCE">Maintenance</option>
+                                    <option value="FREE">Free</option>
+                                    <option value="OCCUPIED">Occupied</option>
+                                    <option value="RESERVED">Reserved</option>
                                 </select>
                             </div>
                         )}

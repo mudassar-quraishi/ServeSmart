@@ -84,6 +84,22 @@ public class MenuService {
         return toResponse(itemRepository.save(item));
     }
 
+    @Transactional
+    public void deleteItem(Long id) {
+        if (!itemRepository.existsById(id)) {
+            throw new RuntimeException("Menu item not found: " + id);
+        }
+        itemRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void toggleAvailability(Long id, Boolean isAvailable) {
+        MenuItem item = itemRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Menu item not found: " + id));
+        item.setIsAvailable(isAvailable);
+        itemRepository.save(item);
+    }
+
     /**
      * Cross-module method: used by OrderService to snapshot price at order time.
      */

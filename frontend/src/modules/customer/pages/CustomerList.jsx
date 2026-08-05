@@ -60,7 +60,7 @@ export default function CustomerList() {
             </div>
 
             <div className="mb-md flex gap-md">
-                <div className="relative flex-1 max-w-md">
+                <div className="relative flex-1 max-w-[448px]">
                     <span className="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
                     <input
                         type="text"

@@ -3,16 +3,16 @@ import { useForm } from 'react-hook-form';
 import api from '../../../services/api';
 import toast from 'react-hot-toast';
 
-export default function MenuModal({ item, onClose, onSuccess }) {
+export default function MenuModal({ item, categories = [], onClose, onSuccess }) {
     const isEdit = !!item;
     const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm({
         defaultValues: {
             name: item?.name || '',
             description: item?.description || '',
             price: item?.price || '',
-            category: item?.category || 'STARTER',
+            categoryId: item?.category?.id || 1,
             isAvailable: item ? item.isAvailable : true,
-            gstSlabId: item?.gstSlab?.id || 1, // Defaulting to first GST slab usually 5%
+            gstSlab: item?.gstSlab || 'FIVE',
         }
     });
 
@@ -22,20 +22,24 @@ export default function MenuModal({ item, onClose, onSuccess }) {
                 name: item.name || '',
                 description: item.description || '',
                 price: item.price || '',
-                category: item.category || 'STARTER',
+                categoryId: item.category?.id || 1,
                 isAvailable: item.isAvailable,
-                gstSlabId: item.gstSlab?.id || 1,
+                gstSlab: item.gstSlab || 'FIVE',
             });
         }
     }, [item, reset]);
 
     const onSubmit = async (data) => {
         try {
+            const payload = {
+                ...data,
+                categoryId: parseInt(data.categoryId, 10),
+            };
             if (isEdit) {
-                await api.put(`/menu/${item.id}`, data);
+                await api.put(`/menu/items/${item.id}`, payload);
                 toast.success('Menu item updated successfully');
             } else {
-                await api.post('/menu', data);
+                await api.post('/menu/items', payload);
                 toast.success('Menu item created successfully');
             }
             onSuccess();
@@ -46,7 +50,7 @@ export default function MenuModal({ item, onClose, onSuccess }) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-md bg-inverse-surface/40 backdrop-blur-sm animate-fade-in">
-            <div className="bg-surface rounded-xl shadow-elevated w-full max-w-lg flex flex-col max-h-[90vh] overflow-hidden animate-slide-up">
+            <div className="bg-surface rounded-xl shadow-elevated w-full min-w-[500px] max-w-lg flex flex-col max-h-[90vh] overflow-hidden animate-slide-up">
                 <div className="p-lg border-b border-outline-variant flex justify-between items-center shrink-0">
                     <h2 className="font-headline-md font-bold text-on-surface">
                         {isEdit ? 'Edit Menu Item' : 'Add New Item'}
@@ -94,13 +98,12 @@ export default function MenuModal({ item, onClose, onSuccess }) {
                             <div className="flex flex-col gap-xs">
                                 <label className="font-label-md text-on-surface-variant">Category *</label>
                                 <select
-                                    {...register('category', { required: 'Category is required' })}
+                                    {...register('categoryId', { required: 'Category is required', valueAsNumber: true })}
                                     className="px-md py-sm border border-outline-variant rounded bg-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-colors"
                                 >
-                                    <option value="STARTER">Starter</option>
-                                    <option value="MAIN_COURSE">Main Course</option>
-                                    <option value="DESSERT">Dessert</option>
-                                    <option value="BEVERAGE">Beverage</option>
+                                    {categories.map(cat => (
+                                        <option key={cat.id} value={cat.id}>{cat.name}</option>
+                                    ))}
                                 </select>
                             </div>
                         </div>
@@ -109,13 +112,12 @@ export default function MenuModal({ item, onClose, onSuccess }) {
                             <div className="flex flex-col gap-xs">
                                 <label className="font-label-md text-on-surface-variant">GST Slab *</label>
                                 <select
-                                    {...register('gstSlabId', { required: 'GST Slab is required', valueAsNumber: true })}
+                                    {...register('gstSlab', { required: 'GST Slab is required' })}
                                     className="px-md py-sm border border-outline-variant rounded bg-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-colors"
                                 >
-                                    {/* Ideally fetched from backend, hardcoding common slabs for UI */}
-                                    <option value="1">5% (Food & Beverage)</option>
-                                    <option value="2">12% (Packaged Items)</option>
-                                    <option value="3">18% (Services/Liquor)</option>
+                                    <option value="FIVE">5% (Food & Beverage)</option>
+                                    <option value="TWELVE">12% (Packaged Items)</option>
+                                    <option value="EIGHTEEN">18% (Services/Liquor)</option>
                                 </select>
                             </div>
                             

@@ -61,22 +61,53 @@ export default function AdminDashboard() {
             <p className="font-body-sm text-body-sm text-on-surface-variant">Access the POS and active orders system.</p>
           </button>
           
-          {/* Coming soon placeholders... */}
-          <div className="flex flex-col items-start p-lg bg-surface-variant/30 rounded-[12px] border border-dashed border-outline-variant opacity-70">
-            <div className="h-12 w-12 bg-surface-variant rounded-full flex items-center justify-center mb-md">
-              <span className="material-symbols-outlined text-on-surface-variant text-[24px]">inventory_2</span>
+          {/* Inventory Card */}
+          <button
+            onClick={() => navigate('/inventory')}
+            className="flex flex-col items-start p-lg bg-surface-container-lowest rounded-[12px] border border-surface-variant hover:border-primary hover:shadow-elevated transition-all text-left group"
+          >
+            <div className="h-12 w-12 bg-tertiary-container rounded-full flex items-center justify-center mb-md group-hover:scale-110 transition-transform">
+              <span className="material-symbols-outlined text-on-tertiary-container text-[24px]">inventory_2</span>
             </div>
             <h3 className="font-headline-sm text-headline-sm text-on-surface mb-xs">Inventory</h3>
-            <p className="font-body-sm text-body-sm text-on-surface-variant">Module integration pending UI.</p>
-          </div>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">Manage stock, suppliers, and purchase orders.</p>
+          </button>
           
-          <div className="flex flex-col items-start p-lg bg-surface-variant/30 rounded-[12px] border border-dashed border-outline-variant opacity-70">
-            <div className="h-12 w-12 bg-surface-variant rounded-full flex items-center justify-center mb-md">
-              <span className="material-symbols-outlined text-on-surface-variant text-[24px]">payments</span>
+          {/* Reports Card */}
+          <button
+            onClick={() => navigate('/reports')}
+            className="flex flex-col items-start p-lg bg-surface-container-lowest rounded-[12px] border border-surface-variant hover:border-primary hover:shadow-elevated transition-all text-left group"
+          >
+            <div className="h-12 w-12 bg-primary-container rounded-full flex items-center justify-center mb-md group-hover:scale-110 transition-transform">
+              <span className="material-symbols-outlined text-on-primary-container text-[24px]">bar_chart</span>
             </div>
-            <h3 className="font-headline-sm text-headline-sm text-on-surface mb-xs">Billing</h3>
-            <p className="font-body-sm text-body-sm text-on-surface-variant">Module integration pending UI.</p>
-          </div>
+            <h3 className="font-headline-sm text-headline-sm text-on-surface mb-xs">Reports</h3>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">View sales, feedback, and financial metrics.</p>
+          </button>
+
+          {/* Menu Card */}
+          <button
+            onClick={() => navigate('/menu')}
+            className="flex flex-col items-start p-lg bg-surface-container-lowest rounded-[12px] border border-surface-variant hover:border-primary hover:shadow-elevated transition-all text-left group"
+          >
+            <div className="h-12 w-12 bg-secondary-container rounded-full flex items-center justify-center mb-md group-hover:scale-110 transition-transform">
+              <span className="material-symbols-outlined text-on-secondary-container text-[24px]">menu_book</span>
+            </div>
+            <h3 className="font-headline-sm text-headline-sm text-on-surface mb-xs">Menu</h3>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">Update categories, prices, and availability.</p>
+          </button>
+
+          {/* Employees Card */}
+          <button
+            onClick={() => navigate('/employees')}
+            className="flex flex-col items-start p-lg bg-surface-container-lowest rounded-[12px] border border-surface-variant hover:border-primary hover:shadow-elevated transition-all text-left group"
+          >
+            <div className="h-12 w-12 bg-tertiary-container rounded-full flex items-center justify-center mb-md group-hover:scale-110 transition-transform">
+              <span className="material-symbols-outlined text-on-tertiary-container text-[24px]">badge</span>
+            </div>
+            <h3 className="font-headline-sm text-headline-sm text-on-surface mb-xs">Employees</h3>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">Manage staff details and system access.</p>
+          </button>
         </div>
       </main>
     </div>

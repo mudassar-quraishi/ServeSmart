@@ -148,7 +148,9 @@ public class OrderService {
             case "ACCEPTED" -> "PREPARING".equals(newStatus) || "CANCELLED".equals(newStatus);
             case "PREPARING" -> "READY".equals(newStatus) || "CANCELLED".equals(newStatus);
             case "READY" -> "SERVED".equals(newStatus);
-            case "SERVED" -> "COMPLETED".equals(newStatus);
+            case "SERVED" -> "COMPLETED".equals(newStatus) || "BILLED".equals(newStatus);
+            case "BILLED" -> "SETTLED".equals(newStatus);
+            case "SETTLED" -> "COMPLETED".equals(newStatus);
             default -> false;
         };
 
