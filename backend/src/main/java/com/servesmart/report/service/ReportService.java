@@ -41,7 +41,7 @@ public class ReportService {
         int completedCount = 0;
 
         for (Order order : dailyOrders) {
-            if ("COMPLETED".equals(order.getStatus()) || "SERVED".equals(order.getStatus())) {
+            if ("COMPLETED".equals(order.getStatus()) || "SERVED".equals(order.getStatus()) || "BILLED".equals(order.getStatus()) || "SETTLED".equals(order.getStatus())) {
                 completedCount++;
                 for (OrderItem item : order.getItems()) {
                     totalRevenue = totalRevenue.add(

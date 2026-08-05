@@ -14,7 +14,7 @@ export default function TableList() {
     const [editingTable, setEditingTable] = useState(null);
     const [statusFilter, setStatusFilter] = useState('ALL');
 
-    const statuses = ['ALL', 'AVAILABLE', 'OCCUPIED', 'RESERVED', 'MAINTENANCE'];
+    const statuses = ['ALL', 'FREE', 'OCCUPIED', 'RESERVED'];
 
     const fetchTables = async () => {
         try {
@@ -70,10 +70,9 @@ export default function TableList() {
 
     const getStatusColor = (status) => {
         switch(status) {
-            case 'AVAILABLE': return 'bg-tertiary-fixed text-on-tertiary-fixed';
+            case 'FREE': return 'bg-tertiary-fixed text-on-tertiary-fixed';
             case 'OCCUPIED': return 'bg-secondary text-on-secondary';
             case 'RESERVED': return 'bg-primary-fixed text-on-primary-fixed';
-            case 'MAINTENANCE': return 'bg-error-container text-on-error-container';
             default: return 'bg-surface-container text-on-surface';
         }
     };
@@ -131,7 +130,7 @@ export default function TableList() {
                                 <h3 className="font-headline-md font-bold text-on-surface text-2xl">{table.tableNumber}</h3>
                                 <div className="flex items-center gap-xs text-on-surface-variant bg-surface-container px-sm py-xs rounded">
                                     <span className="material-symbols-outlined text-[16px]">groups</span>
-                                    <span className="font-label-md font-bold">{table.seatingCapacity}</span>
+                                    <span className="font-label-md font-bold">{table.capacity}</span>
                                 </div>
                             </div>
 
@@ -147,10 +146,9 @@ export default function TableList() {
                                     onChange={(e) => updateStatus(table.id, e.target.value)}
                                     className={`px-sm py-xs rounded font-label-md font-bold outline-none border-none appearance-none cursor-pointer ${getStatusColor(table.status)}`}
                                 >
-                                    <option value="AVAILABLE">Available</option>
+                                    <option value="FREE">Free</option>
                                     <option value="OCCUPIED">Occupied</option>
                                     <option value="RESERVED">Reserved</option>
-                                    <option value="MAINTENANCE">Maintenance</option>
                                 </select>
                                 
                                 {isManager && (

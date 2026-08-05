@@ -24,7 +24,7 @@ export default function StockModal({ item, action, onClose, onSuccess }) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-md bg-inverse-surface/40 backdrop-blur-sm animate-fade-in">
-            <div className="bg-surface rounded-xl shadow-elevated w-full max-w-sm flex flex-col overflow-hidden animate-slide-up">
+            <div className="bg-surface rounded-xl shadow-elevated w-full min-w-[320px] max-w-sm flex flex-col overflow-hidden animate-slide-up">
                 <div className={`p-lg border-b border-outline-variant flex justify-between items-center ${action === 'IN' ? 'bg-primary/5' : 'bg-error/5'}`}>
                     <h2 className={`font-headline-md font-bold flex items-center gap-xs ${action === 'IN' ? 'text-primary' : 'text-error'}`}>
                         <span className="material-symbols-outlined">{action === 'IN' ? 'add_circle' : 'remove_circle'}</span>

@@ -50,4 +50,18 @@ public class MenuController {
     public ResponseEntity<MenuItemResponse> updateItem(@PathVariable Long id, @RequestBody UpdateMenuItemRequest request) {
         return ResponseEntity.ok(menuService.updateItem(id, request));
     }
+
+    @DeleteMapping("/items/{id}")
+    @PreAuthorize("hasAnyRole('MANAGER','SUPER_ADMIN')")
+    public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
+        menuService.deleteItem(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/items/{id}/availability")
+    @PreAuthorize("hasAnyRole('MANAGER','SUPER_ADMIN')")
+    public ResponseEntity<Void> toggleAvailability(@PathVariable Long id, @RequestBody java.util.Map<String, Boolean> request) {
+        menuService.toggleAvailability(id, request.get("isAvailable"));
+        return ResponseEntity.ok().build();
+    }
 }

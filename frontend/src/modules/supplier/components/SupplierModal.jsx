@@ -24,7 +24,7 @@ export default function SupplierModal({ onClose, onSuccess }) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-md bg-inverse-surface/40 backdrop-blur-sm animate-fade-in">
-            <div className="bg-surface rounded-xl shadow-elevated w-full max-w-md flex flex-col max-h-[90vh] overflow-hidden animate-slide-up">
+            <div className="bg-surface rounded-xl shadow-elevated w-full min-w-[400px] max-w-md flex flex-col max-h-[90vh] overflow-hidden animate-slide-up">
                 <div className="p-lg border-b border-outline-variant flex justify-between items-center shrink-0">
                     <h2 className="font-headline-md font-bold text-on-surface">Add New Supplier</h2>
                     <button onClick={onClose} className="text-on-surface-variant hover:text-error transition-colors p-xs rounded-full hover:bg-error-container">
