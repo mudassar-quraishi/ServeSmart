@@ -42,11 +42,16 @@ public class KitchenService {
         this.employeeRepository = employeeRepository;
     }
 
-    public KitchenQueueResponse getQueue(String chefUsername) {
-        User user = userRepository.findByUsername(chefUsername)
-                .orElseThrow(() -> new RuntimeException("User not found: " + chefUsername));
-        Employee chef = employeeRepository.findByUserId(user.getId())
-                .orElseThrow(() -> new RuntimeException("Employee not found for user: " + chefUsername));
+    public KitchenQueueResponse getQueue(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found: " + username));
+        
+        Long chefEmployeeId = null;
+        if ("CHEF".equals(user.getRole().getName())) {
+            Employee chef = employeeRepository.findByUserId(user.getId())
+                    .orElseThrow(() -> new RuntimeException("Employee not found for user: " + username));
+            chefEmployeeId = chef.getId();
+        }
 
         // Get all orders in ACCEPTED or PREPARING status
         List<Order> activeOrders = new ArrayList<>();
@@ -57,7 +62,7 @@ public class KitchenService {
         for (Order order : activeOrders) {
             for (OrderItem oi : order.getItems()) {
                 // Show items assigned to this chef, or unassigned with PENDING/PREPARING status
-                if (oi.getAssignedChefId() == null || oi.getAssignedChefId().equals(chef.getId())) {
+                if (chefEmployeeId == null || oi.getAssignedChefId() == null || oi.getAssignedChefId().equals(chefEmployeeId)) {
                     if ("PENDING".equals(oi.getStatus()) || "PREPARING".equals(oi.getStatus())) {
                         String menuItemName;
                         try {
@@ -91,6 +96,11 @@ public class KitchenService {
                 .orElseThrow(() -> new RuntimeException("Order item not found: " + orderItemId));
         User user = userRepository.findByUsername(chefUsername)
                 .orElseThrow(() -> new RuntimeException("User not found: " + chefUsername));
+                
+        if (!"CHEF".equals(user.getRole().getName())) {
+            throw new RuntimeException("Only CHEF can accept items");
+        }
+        
         Employee chef = employeeRepository.findByUserId(user.getId())
                 .orElseThrow(() -> new RuntimeException("Employee not found for user: " + chefUsername));
 
